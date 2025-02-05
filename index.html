@@ -11,7 +11,7 @@
           align-items: center;
           height: 100vh;
           background-color: #ffe0e9;
-          font-family: Arial, sans-serif;
+          font-family: 'Comic Sans MS', sans-serif; /* Милый шрифт */
           flex-direction: column;
           overflow: hidden;
           margin: 0;
@@ -44,6 +44,17 @@
           left: 50%;
           top: 0;
         }
+        .heart .click-message {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 3vw; /* Размер текста в центре */
+          color: white;
+          font-weight: bold;
+          text-align: center;
+          pointer-events: none; /* Чтобы клик не мешал отображению */
+        }
         @keyframes pulse {
           0% { transform: scale(1) rotate(-45deg); }
           100% { transform: scale(1.2) rotate(-45deg); }
@@ -69,6 +80,16 @@
           animation: burn 2s forwards;
         }
 
+        .sender-info {
+          position: absolute;
+          bottom: 5%;
+          left: 1%;
+          font-size: 4vw;
+          color: #d00050;
+          font-weight: bold;
+          text-align: left;
+        }
+
         /* Медиазапросы для мобильных устройств */
         @media (max-width: 768px) {
           .heart {
@@ -78,6 +99,10 @@
           .message {
             font-size: 6vw;
             top: 30vh;
+          }
+          .sender-info {
+            font-size: 5vw;
+            left: 5%; /* На мобильных устройствах сдвигаем влево больше */
           }
         }
         @media (max-width: 480px) {
@@ -89,10 +114,17 @@
             font-size: 8vw;
             top: 35vh;
           }
+          .sender-info {
+            font-size: 6vw;
+            left: 5%; /* Сдвигаем еще больше на очень маленьких экранах */
+          }
         }
     </style>
 </head>
 <body>
+<div class="sender-info">
+    От: Даниса<br>Кому: Камиле
+</div>
 <div class="heart" onclick="showMessage()"></div>
 <div class="message" id="valentine-message"></div>
 
@@ -114,7 +146,6 @@
     const emojis = ["💖", "💕", "❤️", "💘", "😍", "😘", "💓", "💗", "🔞", "🥵","😈","💋","🔥"];
 
     function showMessage() {
-      // Выбираем случайное сообщение
       const randomIndex = Math.floor(Math.random() * messages.length);
       const mainMessage = document.getElementById("valentine-message");
       mainMessage.textContent = messages[randomIndex];
