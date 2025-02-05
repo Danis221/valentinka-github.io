@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Валентинка</title>
+    <style>
+        body {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          background-color: #ffe0e9;
+          font-family: Arial, sans-serif;
+          flex-direction: column;
+          overflow: hidden;
+          margin: 0;
+          position: relative;
+        }
+        .heart {
+          position: relative;
+          width: 15vw; /* Уменьшаем размер сердца для мобильных устройств */
+          height: 15vw;
+          background-color: red;
+          transform: rotate(-45deg);
+          animation: pulse 1s infinite alternate;
+          cursor: pointer;
+        }
+        .heart::before,
+        .heart::after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background-color: red;
+          border-radius: 50%;
+        }
+        .heart::before {
+          top: -50%;
+          left: 0;
+        }
+        .heart::after {
+          left: 50%;
+          top: 0;
+        }
+        @keyframes pulse {
+          0% { transform: scale(1) rotate(-45deg); }
+          100% { transform: scale(1.2) rotate(-45deg); }
+        }
+        .message {
+          position: absolute;
+          top: 1vh;
+          font-size: 5vw; /* Подстраиваем размер шрифта */
+          color: #d00050;
+          text-align: center;
+          font-weight: bold;
+          opacity: 0;
+          transition: opacity 0.5s ease-in-out;
+        }
+        @keyframes burn {
+          0% { opacity: 1; transform: scale(1); filter: blur(0px); }
+          25% { opacity: 0.8; transform: scale(1.05); filter: blur(1px); }
+          50% { opacity: 0.6; transform: scale(1.1) rotate(1deg); filter: blur(2px); }
+          75% { opacity: 0.3; transform: scale(1.15) rotate(-1deg); filter: blur(4px); }
+          100% { opacity: 0; transform: scale(1.2) rotate(0deg); filter: blur(6px); }
+        }
+        .burn-effect {
+          animation: burn 2s forwards;
+        }
+
+        /* Медиазапросы для мобильных устройств */
+        @media (max-width: 768px) {
+          .heart {
+            width: 30vw;
+            height: 30vw;
+          }
+          .message {
+            font-size: 6vw;
+            top: 30vh;
+          }
+        }
+        @media (max-width: 480px) {
+          .heart {
+            width: 40vw;
+            height: 40vw;
+          }
+          .message {
+            font-size: 8vw;
+            top: 35vh;
+          }
+        }
+    </style>
+</head>
+<body>
+<div class="heart" onclick="showMessage()"></div>
+<div class="message" id="valentine-message"></div>
+
+<script>
+    const messages = [
+      "Люблю тебя, Камила! 💖",
+      "Ты самая лучшая! 💕",
+      "Ты самая крутая! 💕",
+      "Ты самая красивая! 💕",
+      "Моя! 💕",
+      "Обожаю тебя! ❤️",
+      "Любимка 😈️",
+      "Котенок 💋",
+      "Малышик 💖",
+      "Моё сердечко твоё! 💘"
+    ];
+
+    // Массив случайных эмоджи
+    const emojis = ["💖", "💕", "❤️", "💘", "😍", "😘", "💓", "💗", "🔞", "🥵","😈","💋","🔥"];
+
+    function showMessage() {
+      // Выбираем случайное сообщение
+      const randomIndex = Math.floor(Math.random() * messages.length);
+      const mainMessage = document.getElementById("valentine-message");
+      mainMessage.textContent = messages[randomIndex];
+      mainMessage.classList.remove("burn-effect");
+      mainMessage.style.opacity = "1";
+
+      setTimeout(() => {
+        mainMessage.classList.add("burn-effect");
+      }, 1000);
+
+      showRandomEmoji();
+    }
+
+    function showRandomEmoji() {
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+      const emojiElement = document.createElement("div");
+      emojiElement.textContent = emoji;
+      emojiElement.style.position = "absolute";
+      emojiElement.style.fontSize = "8vw"; // Размер эмоджи адаптивен
+
+      const x = Math.random() * (window.innerWidth - 50);
+      const y = Math.random() * (window.innerHeight - 50);
+      emojiElement.style.left = x + "px";
+      emojiElement.style.top = y + "px";
+
+      document.body.appendChild(emojiElement);
+    }
+</script>
+</body>
+</html>
