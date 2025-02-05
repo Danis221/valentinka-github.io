@@ -18,9 +18,9 @@
           position: relative;
         }
         .heart {
-          top: calc(20% - 5px);
+          top: calc(1%);
           position: relative;
-          width: 15vw; /* Уменьшаем размер сердца для мобильных устройств */
+          width: 15vw;
           height: 15vw;
           background-color: red;
           transform: rotate(-45deg);
@@ -81,9 +81,10 @@
         }
 
         .sender-info {
+          display: flex;
           position: absolute;
-          top: 50%;
-          left: 1%;
+          top: 75%;
+          left: calc(5% - 5px);
           font-size: 4vw;
           color: #d00050;
           font-weight: bold;
